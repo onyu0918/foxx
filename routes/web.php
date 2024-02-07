@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,18 +29,8 @@ require __DIR__.'/auth.php';
 
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [DashboardController::class,'index']);
 
-Route::get('/feed', function () {
-    return view('welcome');
-});
-
-Route::get('/profile', function () {
-    return view('welcome');
-});
-
-
+Route::get('/profile', [ProfileController::class,'index']);
 
 
