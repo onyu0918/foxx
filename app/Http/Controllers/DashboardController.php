@@ -4,27 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Fox;
 
 class DashboardController extends Controller
 {
 
     public function index() {
-        $users = [
-            [
-                "name"=> "Alex",
-                'age'=> 30,
-            ],
-            [
-                'name'=> 'Dan',
-                'age'=> 25,
-            ],
-            [
-                'name'=> 'john',
-                'age'=> 17,
-            ]
-        ];
-
-        return view('dashboard', ['usersList' => $users]);
+        return view('dashboard',[
+            'foxx'=> Fox::orderBy('created_at','DESC')->get()
+        ]);
     }
 
 }

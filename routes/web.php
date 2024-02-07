@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FoxController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,10 +30,10 @@ require __DIR__.'/auth.php';
 
 */
 
-Route::get('/', [DashboardController::class,'index']);
+Route::get('/', [DashboardController::class,'index'])->name('dashboard');
 
-Route::get('/terms', function() {
-    return view('terms');
-});
+Route::post('/fox', [FoxController::class,'store'])->name('fox.create');
+
+Route::get('/terms', function() { return view('terms'); });
 
 
