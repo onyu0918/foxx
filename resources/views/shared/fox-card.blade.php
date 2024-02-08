@@ -8,6 +8,14 @@
                     <h5 class="card-title mb-0"><a href="#"> Mario</a></h5>
                 </div>
             </div>
+            <div>
+                <form method="POST" action="{{ route('fox.destroy', $fox) }}">
+                    @csrf
+                    @method('delete')
+                    <a href="{{ route('fox.show',$fox->id) }}"> View </a>
+                    <button class="btn btn-danger btn-sm"> X </button>
+                </form>
+            </div>
         </div>
     </div>
     <div class="card-body">

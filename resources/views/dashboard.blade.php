@@ -38,7 +38,7 @@
         </div>
     </div>
     <div class="col-6">
-
+        @include('shared.success-message')
         @include('shared.submit-fox')
         <hr>
         @foreach ($foxx as $fox)
@@ -46,6 +46,9 @@
             @include('shared.fox-card')
         </div>
         @endforeach
+        <div class="mt-3">
+            {{ $foxx->links() }}
+        </div>
     </div>
     <div class="col-3">
         <div class="card">

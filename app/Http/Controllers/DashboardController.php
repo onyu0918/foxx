@@ -11,7 +11,7 @@ class DashboardController extends Controller
 
     public function index() {
         return view('dashboard',[
-            'foxx'=> Fox::orderBy('created_at','DESC')->get()
+            'foxx'=> Fox::orderBy('created_at','DESC')->paginate(5)
         ]);
     }
 

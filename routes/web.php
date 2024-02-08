@@ -32,7 +32,11 @@ require __DIR__.'/auth.php';
 
 Route::get('/', [DashboardController::class,'index'])->name('dashboard');
 
-Route::post('/fox', [FoxController::class,'store'])->name('fox.create');
+Route::get('/fox/{fox}', [FoxController::class,'show'])->name('fox.show');
+
+Route::post('/fox', [FoxController::class,'store'])->name('fox.store');
+
+Route::delete('/fox/{fox}', [FoxController::class,'destroy'])->name('fox.destroy');
 
 Route::get('/terms', function() { return view('terms'); });
 
