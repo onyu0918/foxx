@@ -1,10 +1,13 @@
+@extends('layout.layout')
+@section('title', 'Dashboard')
+@section('content')
 <h4> Share yours ideas </h4>
 <div class="row">
     <form action="{{ route('fox.store') }}" method="post">
         @csrf
         <div class="mb-3">
-            <textarea name="content" class="form-control" id="content" rows="3"></textarea>
-            @error('content')
+            <textarea name="fox" class="form-control" id="idea" rows="3">{{ $fox -> content }}</textarea>
+            @error('fox')
                 <span class="d-block fs-6 text-danger mt-2"> {{ $message }} </span>
             @enderror
         </div>
@@ -13,3 +16,4 @@
         </div>
     </form>
 </div>
+@endsection

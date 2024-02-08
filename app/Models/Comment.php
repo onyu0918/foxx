@@ -5,18 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Fox extends Model
+class Comment extends Model
 {
-    protected $table = 'foxx';
+    protected $table = 'comments';
     use HasFactory;
-
 
     protected $fillable = [
         'content',
-        'like',
+        'fox_id',
     ];
-
-    public function comments() {
-        return $this->hasMany(Comment::class);
-    }
 }

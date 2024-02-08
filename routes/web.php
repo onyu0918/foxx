@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FoxController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,9 +35,16 @@ Route::get('/', [DashboardController::class,'index'])->name('dashboard');
 
 Route::get('/fox/{fox}', [FoxController::class,'show'])->name('fox.show');
 
+Route::get('/fox/{fox}/edit', [FoxController::class,'edit'])->name('fox.edit');
+
+Route::put('/fox/{fox}', [FoxController::class,'update'])->name('fox.update');
+
 Route::post('/fox', [FoxController::class,'store'])->name('fox.store');
 
 Route::delete('/fox/{fox}', [FoxController::class,'destroy'])->name('fox.destroy');
+
+Route::post('/fox/{fox}/comments', [CommentController::class,'store'])->name('fox.comments.store');
+
 
 Route::get('/terms', function() { return view('terms'); });
 
