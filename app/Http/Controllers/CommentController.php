@@ -22,9 +22,8 @@ class CommentController extends Controller
         //     ]
         // );
 
-
         $comment = new Comment();
-        $comment->fox_id = $fox->name;
+        $comment->fox_id = $fox->id;
         $comment->user_id = auth()->id();
         $comment->content = request()->get('content');
         $comment->save();

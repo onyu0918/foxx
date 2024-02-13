@@ -7,7 +7,9 @@
         </div>
         <div class="col-6">
             @include('shared.success-message')
-            @include('shared.submit-fox')
+            <div class="mt-3">
+                @include('shared.user-card')
+            </div>
             <hr>
 
             @forelse ($foxx as $fox)

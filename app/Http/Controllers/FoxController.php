@@ -18,7 +18,9 @@ class FoxController extends Controller
     }
 
     public function edit(Fox $fox) {
-
+        if(auth()->id() !== $fox->user_id) {
+            abort(404);
+        }
         $editing = true;
 
         return view("foxx.show", compact("fox", "editing"));
@@ -39,7 +41,9 @@ class FoxController extends Controller
     }
 
     public function update(Fox $fox) {
-
+        if(auth()->id() !== $fox->user_id) {
+            abort(404);
+        }
         $validated = request()->validate([ "content"=> "required|min:5|max:240", ]);
         $fox->update($validated);
 
@@ -47,6 +51,10 @@ class FoxController extends Controller
     }
 
     public function destroy(Fox $fox) {
+
+        if(auth()->id() !== $fox->user_id) {
+            abort(404);
+        }
 
         Fox::destroy($fox->id);
 

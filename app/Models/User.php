@@ -44,6 +44,10 @@ class User extends Authenticatable
     ];
 
     public function foxx() {
-        return $this->hasMany(Fox::class);
+        return $this->hasMany(Fox::class)->latest();
+    }
+
+    public function comments() {
+        return $this->hasMany(Comment::class)->latest();
     }
 }
