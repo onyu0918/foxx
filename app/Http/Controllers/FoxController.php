@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Fox;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class FoxController extends Controller
 {
@@ -24,9 +26,14 @@ class FoxController extends Controller
 
 
     public function store() {
-
-        $validated = request()->validate([ "content"=> "required|min:5|max:240", ]);
-        Fox::create($validated);
+        $validated = request()->validate([
+            "content"=> "required|min:5|max:240",
+        ]);
+        $validated['user_id'] = auth()->id();
+        DB::insert('insert into foxx(user_id,content) values(:user_id, :content)', [
+            'user_id' => $validated['user_id'],
+            'content' => $validated['content'],
+        ]);
 
         return redirect()->route("dashboard")->with("success","Fox create successfully!");
     }
