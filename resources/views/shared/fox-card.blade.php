@@ -3,19 +3,24 @@
         <div class="d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center">
                 <img style="width:50px" class="me-2 avatar-sm rounded-circle"
-                    src="https://api.dicebear.com/6.x/fun-emoji/svg?seed={{ $fox->user->name }}" alt="{{ $fox->user->name }}">
+                    src="{{ $fox->user->getImageURL() }}"
+                    alt="{{ $fox->user->name }}">
                 <div>
-                    <h5 class="card-title mb-0"><a href="#">{{ $fox->user->name }}</a></h5>
+                    <h5 class="card-title mb-0"><a href="{{ route('users.show',$fox->user->id) }}">{{ $fox->user->name }}</a></h5>
                 </div>
             </div>
-            <div>
-                <form method="POST" action="{{ route('fox.destroy', $fox) }}">
-                    @csrf
-                    @method('delete')
-                    <a class="mx-2" href="{{ route('fox.edit',$fox->id) }}"> Edit </a>
-                    <a href="{{ route('fox.show',$fox->id) }}"> View </a>
-                    <button class="ms-1 btn btn-danger btn-sm"> X </button>
-                </form>
+            <div class="d-flex">
+                <a href="{{ route('fox.show', $fox->id) }}"> View </a>
+                @auth
+                    @if (Auth::id() === $fox->user_id)
+                        <a class="mx-2" href="{{ route('fox.edit', $fox->id) }}"> Edit </a>
+                        <form method="POST" action="{{ route('fox.destroy', $fox->id) }}">
+                            @csrf
+                            @method('delete')
+                            <button class="ms-1 btn btn-danger btn-sm"> X </button>
+                        </form>
+                    @endif
+                @endauth
             </div>
         </div>
     </div>
@@ -25,7 +30,7 @@
                 @csrf
                 @method('put')
                 <div class="mb-3">
-                    <textarea name="content" class="form-control" id="content" rows="3">{{ $fox -> content }}</textarea>
+                    <textarea name="content" class="form-control" id="content" rows="3">{{ $fox->content }}</textarea>
                     @error('content')
                         <span class="d-block fs-6 text-danger mt-2"> {{ $message }} </span>
                     @enderror
@@ -36,17 +41,17 @@
             </form>
         @else
             <p class="fs-6 fw-light text-muted">
-                {{ $fox -> content }}
+                {{ $fox->content }}
             </p>
         @endif
         <div class="d-flex justify-content-between">
             <div>
                 <a href="#" class="fw-light nav-link fs-6"> <span class="fas fa-heart me-1">
-                    </span> {{ $fox -> likes }} </a>
+                    </span> {{ $fox->likes }} </a>
             </div>
             <div>
                 <span class="fs-6 fw-light text-muted"> <span class="fas fa-clock"> </span>
-                    {{ $fox -> create_at }} </span>
+                    {{ $fox->create_at }} </span>
             </div>
         </div>
         @include('shared.comments-box')
