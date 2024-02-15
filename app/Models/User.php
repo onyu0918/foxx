@@ -65,6 +65,14 @@ class User extends Authenticatable
         return $this->followings()->where('user_id', $user->id)->exists();
     }
 
+    public function likes() {
+        return $this->belongsToMany(Fox::class,'fox_like')->withTimestamps();
+    }
+
+    public function likesFox(Fox $fox) {
+        return $this->likes()->where('fox_id', $fox->id)->exists();
+    }
+
     public function getImageURL() {
         if($this->image) {
             return url('storage/'. $this->image);

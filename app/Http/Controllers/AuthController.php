@@ -24,13 +24,18 @@ class AuthController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|confirmed|min:8',
         ]);
-        DB::insert('insert into users(name,email,password) values(:name, :email, :password)', [
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password']),
+        $user = User::create([
+            'name'=> $validated['name'],
+            'email'=> $validated['email'],
+            'password'=> Hash::make($validated['password']),
         ]);
-        dd($request);
-        Mail::to($validated['email'])->send(new WelcomeEmail());
+        // DB::insert('insert into users(name,email,password) values(:name, :email, :password)', [
+        //     'name' => $validated['name'],
+        //     'email' => $validated['email'],
+        //     'password' => Hash::make($validated['password']),
+        // ]);
+
+        Mail::to($user->email)->send(new WelcomeEmail($user));
 
 
         return redirect()->route('dashboard')->with('success', 'Account create Success!');

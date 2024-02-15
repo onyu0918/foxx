@@ -7,12 +7,12 @@
         </div>
         <div class="col-6">
             @include('shared.success-message')
-            @include('shared.submit-fox')
+            @include('foxx.shared.submit-fox')
             <hr>
 
             @forelse ($foxx as $fox)
                 <div class="mt-3">
-                    @include('shared.fox-card')
+                    @include('foxx.shared.fox-card')
                 </div>
             @empty
                 <p class="text-center mt-4">No results Found.</p>

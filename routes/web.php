@@ -5,6 +5,7 @@ use App\Http\Controllers\FoxController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FollowerController;
+use App\Http\Controllers\FoxLikeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,7 +28,8 @@ Route::resource('fox', FoxController::class)->only(['show']);
 
 Route::resource('fox.comments', CommentController::class)->only(['store'])->middleware('auth');
 
-Route::resource('users', UserController::class)->only('show','edit','update')->middleware('auth');
+Route::resource('users', UserController::class)->only('show');
+Route::resource('users', UserController::class)->only('edit','update')->middleware('auth');
 
 Route::get('profile',[UserController::class,'profile'])->middleware('auth')->name('profile');
 
@@ -35,6 +37,10 @@ Route::post('users/{user}/follow',[FollowerController::class ,'follow'])->middle
 
 Route::post('users/{user}/unfollow',[FollowerController::class ,'unfollow'])->middleware('auth')->name('users.unfollow');
 
+Route::post('fox/{fox}/like',[FoxLikeController::class ,'like'])->middleware('auth')->name('foxx.like');
+
+Route::post('fox/{fox}/unlike',[FoxLikeController::class ,'unlike'])->middleware('auth')->name('foxx.unlike');
+
 Route::get('/terms', function () {
     return view('terms');
-});
+})->name('terms');
