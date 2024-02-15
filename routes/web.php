@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FeedController;
 use App\Http\Controllers\FoxController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\AuthController;
@@ -40,6 +41,8 @@ Route::post('users/{user}/unfollow',[FollowerController::class ,'unfollow'])->mi
 Route::post('fox/{fox}/like',[FoxLikeController::class ,'like'])->middleware('auth')->name('foxx.like');
 
 Route::post('fox/{fox}/unlike',[FoxLikeController::class ,'unlike'])->middleware('auth')->name('foxx.unlike');
+
+Route::get('/feed', FeedController::class)->middleware('auth')->name('feed');
 
 Route::get('/terms', function () {
     return view('terms');
