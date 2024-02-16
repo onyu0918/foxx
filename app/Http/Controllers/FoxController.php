@@ -13,7 +13,6 @@ class FoxController extends Controller
     public function show(Fox $fox) {
 
         $editing = false;
-
         return view("foxx.show", compact("fox", "editing"));
     }
 
@@ -31,11 +30,17 @@ class FoxController extends Controller
         $validated = request()->validate([
             "content"=> "required|min:5|max:240",
         ]);
-        $validated['user_id'] = auth()->id();
-        DB::insert('insert into foxx(user_id,content) values(:user_id, :content)', [
-            'user_id' => $validated['user_id'],
-            'content' => $validated['content'],
-        ]);
+        // $validated['user_id'] = auth()->id();
+        // DB::insert('insert into foxx(user_id,content) values(:user_id, :content)', [
+        //     'user_id' => $validated['user_id'],
+        //     'content' => $validated['content'],
+        // ]);
+
+
+        $fox = new Fox();
+        $fox->user_id = auth()->id();
+        $fox->content = $validated['content'];
+        $fox->save();
 
         return redirect()->route("dashboard")->with("success","Fox create successfully!");
     }

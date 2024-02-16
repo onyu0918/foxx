@@ -48,9 +48,9 @@
             @include('foxx.shared.like-button')
             <div>
                 <span class="fs-6 fw-light text-muted"> <span class="fas fa-clock"> </span>
-                    {{ $fox->create_at->diffForHumans() }} </span>
+                    {{ $fox->created_at->diffForHumans() }} </span>
             </div>
         </div>
-        @include('shared.comments-box')
+        @include('foxx.shared.comments-box')
     </div>
 </div>

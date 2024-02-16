@@ -12,11 +12,7 @@ class Fox extends Model
 
     //protected $with = ['user:id,image','comments.user:id,name,image'];
 
-    protected $guarded = [
-        'id',
-        'created_at',
-        'updated_at',
-    ] ;
+
 
     protected $fillable = [
         'user_id',
