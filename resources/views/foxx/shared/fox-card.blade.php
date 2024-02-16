@@ -12,14 +12,14 @@
             <div class="d-flex">
                 <a href="{{ route('fox.show', $fox->id) }}"> View </a>
                 @auth
-                    @if (Auth::id() === $fox->user_id)
+                    @can('update', $fox)
                         <a class="mx-2" href="{{ route('fox.edit', $fox->id) }}"> Edit </a>
                         <form method="POST" action="{{ route('fox.destroy', $fox->id) }}">
                             @csrf
                             @method('delete')
                             <button class="ms-1 btn btn-danger btn-sm"> X </button>
                         </form>
-                    @endif
+                    @endcan
                 @endauth
             </div>
         </div>

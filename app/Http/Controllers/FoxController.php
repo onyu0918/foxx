@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Fox;
+use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -17,9 +18,10 @@ class FoxController extends Controller
     }
 
     public function edit(Fox $fox) {
-        if(auth()->id() !== $fox->user_id) {
-            abort(404);
-        }
+        // if(auth()->id() !== $fox->user_id) {
+        //     abort(404);
+        // }
+        $this->authorize("update", $fox);
         $editing = true;
 
         return view("foxx.show", compact("fox", "editing"));
@@ -49,6 +51,8 @@ class FoxController extends Controller
         if(auth()->id() !== $fox->user_id) {
             abort(404);
         }
+        $this->authorize("update", $fox);
+
         $validated = request()->validate([ "content"=> "required|min:5|max:240", ]);
         $fox->update($validated);
 
@@ -57,9 +61,10 @@ class FoxController extends Controller
 
     public function destroy(Fox $fox) {
 
-        if(auth()->id() !== $fox->user_id) {
-            abort(404);
-        }
+        // if(auth()->id() !== $fox->user_id) {
+        //     abort(404);
+        // }
+        $this->authorize("delete", $fox);
 
         Fox::destroy($fox->id);
 
