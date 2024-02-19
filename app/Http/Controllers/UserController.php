@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,6 +17,7 @@ class UserController extends Controller
     public function show(User $user)
     {
         $foxx = $user->foxx()->paginate(5);
+
         return view('users.show', compact('user', 'foxx'));
     }
 
@@ -33,17 +35,13 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(User $user)
+    public function update(UpdateUserRequest $request,User $user)
     {
         $this->authorize('update', $user);
-        $validated = request()->validate([
-            'name' => 'required|min:3|max:40',
-            'bio' => 'nullable|min:1|max:255',
-            'image' => 'image',
-        ]);
+        $validated = $request->validated();
 
-        if (request()->has('image')) {
-            $imagePath = request()->file('image')->store('profile', 'public');
+        if ($request->has('image')) {
+            $imagePath = $request->file('image')->store('profile', 'public');
             $validated['image'] = $imagePath;
 
             Storage::disk('public')->delete($user->image ?? '');
@@ -64,4 +62,6 @@ class UserController extends Controller
     {
         return $this->show(auth()->user());
     }
+
+
 }

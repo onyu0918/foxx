@@ -16,5 +16,5 @@
     </div>
 @endauth
 @guest
-    <h4>Login To Share yours ideas </h4>
+    <h4> {{ __('foxx.Login_To_Share') }} </h4>
 @endguest

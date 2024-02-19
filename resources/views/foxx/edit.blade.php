@@ -1,5 +1,5 @@
 @extends('layout.layout')
-@section('title', 'Dashboard')
+@section('title', 'Edit')
 @section('content')
 <h4> Share yours ideas </h4>
 <div class="row">

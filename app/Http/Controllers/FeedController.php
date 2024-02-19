@@ -15,7 +15,6 @@ class FeedController extends Controller
         $followingIDs = auth()->user()->followings()->pluck('user_id');
         $foxx = Fox::whereIn('user_id',$followingIDs)->latest();
 
-        // $foxx = Fox::orderBy('created_at','DESC');
         if(request()->has("search")) {
             $foxx = $foxx->where("content","LIKE","%".request()->get('search','')."%");
         }

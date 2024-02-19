@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateCommentRequest;
 use App\Models\Comment;
 use App\Models\Fox;
 use Illuminate\Http\Request;
@@ -10,11 +11,9 @@ use Illuminate\Http\Request;
 class CommentController extends Controller
 {
     //
-    public function store(Fox $fox) {
+    public function store(CreateCommentRequest $request,Fox $fox) {
 
-        // request()->validate([
-        //     "content"=> "required|min:5|max:240",
-        // ]);
+        $validated = $request->validated();
         // $Comment = Comment::create(
         //     [
         //         'content'=> request()->get("content",""),
@@ -25,7 +24,7 @@ class CommentController extends Controller
         $comment = new Comment();
         $comment->fox_id = $fox->id;
         $comment->user_id = auth()->id();
-        $comment->content = request()->get('content');
+        $comment->content = $validated['content'];
         $comment->save();
 
 
